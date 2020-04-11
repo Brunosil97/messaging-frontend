@@ -25,7 +25,7 @@ const chats = [
         sender: "test1@gmail.com",
       },
       {
-        content: "this is a second message",
+        content: "this is a second message :) <3",
         sender: "test2@gmail.com",
       },
     ],
