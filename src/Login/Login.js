@@ -22,14 +22,8 @@ class LoginComponent extends React.Component {
     submitLogin = event => {
         event.preventDefault()
         this.props.history.push('/home')
-            //need authentication
-            // // .then(() => {
-            //     this.props.history.push('/home')
-            // }, err => {
-            // this.setState({ loginError: 'Login Error'})
-            // console.log(err)
-            // })
         }
+        
     userTyping = (type, event) => {
         switch (type){
             case 'email':
