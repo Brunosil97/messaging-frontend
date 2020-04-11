@@ -15,7 +15,8 @@ import Data from '../database'
 class LoginComponent extends React.Component {
     state = { 
         email: '',
-        password: ''
+        password: '',
+        passwordConfirmation: ''
      }
 
      onFormSubmit = (event) => {
@@ -42,6 +43,9 @@ class LoginComponent extends React.Component {
             case "password" :
                 this.setState({password: event.target.value})
                 break
+            case "confirm-password" :
+                this.setState({password: event.target.value})
+                break
                 default :
                 break;
          }
@@ -62,7 +66,11 @@ class LoginComponent extends React.Component {
                         <InputLabel>Password</InputLabel>
                         <Input name="password" onChange={(e) => this.addUserToState(e)} ></Input>
                     </FormControl>
-                    <Button type="submit" fullWidth variant='contained' color="primary" className={classes.submit}>Log In!</Button>
+                    <FormControl required fullWidth margin='normal'>
+                        <InputLabel>Confirm Password</InputLabel>
+                        <Input name="confirm-password" onChange={(e) => this.addUserToState(e)} ></Input>
+                    </FormControl>
+                    <Button type="submit" fullWidth variant='contained' color="primary" className={classes.submit}>Create Account!</Button>
                     </form>
                 <h5 className={classes.noAccountHeader}>Already have an account?</h5>
                 <Link className={classes.signUpLink} to='/login'>Log In!</Link>
