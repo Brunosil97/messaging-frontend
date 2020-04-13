@@ -6,6 +6,7 @@ class DashboardContainer extends Component {
   state = {
     selectedChat: "",
   };
+  
   render() {
     return (
       <div>
