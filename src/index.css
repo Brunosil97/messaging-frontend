@@ -88,3 +88,10 @@ code {
 .MessageBoxEdit {
   width: 63vw;
 }
+
+.ProfileEditImage {
+  width: 300px;
+  height: auto;
+  align-self: center;
+  margin-top: 25px;
+}
