@@ -19,9 +19,34 @@ class LoginComponent extends React.Component {
             loginError: ""
         }
     }
+
+    API_SESH = 'http://localhost:3000/sessions'
+
+
     submitLogin = event => {
+        // const {email, password, loginErrors} = this.state
+
         event.preventDefault()
-        this.props.history.push('/home')
+        // console.log(this.state)
+        // this.props.history.push('/home')
+
+        fetch(this.API_SESH, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        }).then(response => response.json())
+        .then(console.log)
+    }
+
+
+        // find email address, check if password matches
+        // sessions
             //need authentication
             // // .then(() => {
             //     this.props.history.push('/home')
@@ -29,7 +54,7 @@ class LoginComponent extends React.Component {
             // this.setState({ loginError: 'Login Error'})
             // console.log(err)
             // })
-        }
+        
     userTyping = (type, event) => {
         switch (type){
             case 'email':
@@ -42,6 +67,8 @@ class LoginComponent extends React.Component {
                 break;
         }
     }
+
+
     render() {
         const {classes} = this.props;
         return(
