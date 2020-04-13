@@ -11,7 +11,7 @@ import styles from './styles'
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const ButtonAppBar = (props) => {
-  const {classes} = props;
+  const {classes, handleNavClick} = props;
 
   return (
     <div className={classes.root}>

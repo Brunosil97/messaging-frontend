@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import NavBar from '../../NavBar/NavBar'
 
 class ProfileComponent extends React.Component {
 
@@ -43,9 +44,10 @@ class ProfileComponent extends React.Component {
     render() {
         const {classes} = this.props 
         return ( 
-            <main className={classes.main}>
+            <div>
+                <NavBar/>
+                <main className={classes.main}>
                 <CssBaseline></CssBaseline>
-                <Link className={classes.backLink} to='/home'>Back to Dashboard</Link>
                 <Typography component='h1' variant='h5'>Edit Profile</Typography>
                 <form className={classes.form} onSubmit={(event) => this.submitChanges(event)}>
                     <FormControl required fullWidth margin='normal'>
@@ -64,8 +66,8 @@ class ProfileComponent extends React.Component {
                     <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit}>Make Changes</Button>
                 </form>
                 <br></br>
-                <Link className={classes.backLink} color='pink'  to='/home'>Back to Dashboard</Link>
-            </main>
+                </main>
+            </div>
          );
     }
 }

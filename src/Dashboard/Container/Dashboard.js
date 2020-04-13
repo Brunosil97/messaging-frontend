@@ -5,12 +5,13 @@ import NavBar from "../../NavBar/NavBar"
 
 class DashboardContainer extends Component {
   state = {
+    page: "home",
     selectedChat: "",
   };
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar />
         <div className="Chats">
           <ChatList
             className="ChatList"
