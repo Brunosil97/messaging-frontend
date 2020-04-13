@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ShowChat from "../Components/ShowChats";
 import Data from "../../database";
+import NewMessageBtn from "../Components/NewMessageBtn";
 
 export default class ChatList extends Component {
   render() {
@@ -16,7 +17,14 @@ export default class ChatList extends Component {
         />
       ) : null
     );
-    return <div>{chats}</div>;
+    return (
+      <div>
+        <NewMessageBtn
+          HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
+        />
+        {chats}
+      </div>
+    );
   }
   findLastMessage = (messages) => {
     console.log(messages);

@@ -18,6 +18,7 @@ code {
 .ChatListEven {
   background-color: rgb(208, 208, 218);
   width: 30vw;
+  min-width: 230px;
   height: 70px;
   display: flex;
   flex-direction: row;
@@ -33,6 +34,7 @@ code {
 .ChatListOdd {
   background-color: rgb(244, 252, 251);
   width: 30vw;
+  min-width: 230px;
   height: 70px;
   display: flex;
   flex-direction: row;
@@ -40,8 +42,8 @@ code {
   align-items: center;
 }
 .ChatInfo {
-  margin-right: 30px;
   width: 20vw;
+  min-width: 230px;
   height: 70px;
   display: flex;
   flex-direction: column;
@@ -59,7 +61,7 @@ code {
 }
 .DisplayMessages {
   width: 70vw;
-  height: 100vh;
+  height: 93vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -68,18 +70,28 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   height: 70vh;
 }
 .MessageSender {
   align-self: flex-end;
   margin-right: 30px;
   margin-left: 50px;
+  background-color: rgb(208, 208, 218);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: -10px 10px 20px 0px rgba(0, 0, 0, 0.75);
+  margin-top: 15px;
 }
 .MessageReceiver {
   align-self: flex-start;
   margin-left: 30px;
   margin-right: 50px;
+  background-color: rgb(244, 252, 251);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
+  margin-top: 15px;
 }
 .TypeMessageBox {
   margin-left: 30px;
@@ -87,4 +99,37 @@ code {
 }
 .MessageBoxEdit {
   width: 63vw;
+}
+.NewMessageBtn {
+  align-self: flex-start;
+  width: 30vw;
+  min-width: 230px;
+  height: 70px;
+  background-color: rgb(119, 175, 240);
+  border: none;
+}
+.NewMessageBtn:hover {
+  background-color: rgb(77, 40, 243);
+  color: white;
+}
+.NewMessageStyle {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.NewMessagePaper {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px;
+}
+.NewMessagePaper h3:hover {
+  color: rgb(56, 56, 163);
+}
+.Dashboard {
+  min-width: 685px;
+  width: 100vw;
 }

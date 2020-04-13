@@ -1,33 +1,67 @@
 import React, { Component } from "react";
 import ChatList from "./ChatList.js";
 import ShowChat from "./ShowChat.js";
-import NavBar from "../../NavBar/NavBar"
+import NavBar from "../../NavBar/NavBar";
+import NewMessage from "./NewMessage";
 
 class DashboardContainer extends Component {
   state = {
-    page: "home",
+    newMessage: false,
     selectedChat: "",
+    NewMessageUsers: "",
+    NewMessageMessage: "",
   };
-  
+
   render() {
     return (
-      <div>
-        <NavBar />
-        <div className="Chats">
-          <ChatList
-            className="ChatList"
-            HandleSelectMessageClick={this.HandleSelectMessageClick}
+      <div className="Dashboard">
+        <NavBar ResetNewMessageBack={this.ResetNewMessageBack} />
+        {this.state.newMessage ? (
+          <NewMessage
+            HandleNewMessageSubmit={this.HandleNewMessageSubmit}
+            HandleNewMessageBack={this.ResetNewMessageBack}
+            NewMessageTyping={this.NewMessageTyping}
           />
-          {this.state.selectedChat !== "" ? (
-            <ShowChat className="ShowChat" chat={this.state.selectedChat} />
-          ) : null}
-        </div>
+        ) : (
+          <div className="Chats">
+            <ChatList
+              className="ChatList"
+              HandleSelectMessageClick={this.HandleSelectMessageClick}
+              HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
+            />
+            {this.state.selectedChat !== "" ? (
+              <ShowChat className="ShowChat" chat={this.state.selectedChat} />
+            ) : null}
+          </div>
+        )}
       </div>
     );
   }
   HandleSelectMessageClick = (chat) => {
     this.setState({ selectedChat: chat });
   };
+  HandleNewMessageBtnClick = () => {
+    this.setState({ newMessage: !this.state.newMessage });
+  };
+  HandleNewMessageSubmit = (e) => {
+    console.log(e.target);
+    this.setState({
+      newMessage: false,
+      NewMessageUsers: "",
+      NewMessageMessage: "",
+    });
+  };
+  ResetNewMessageBack = () => {
+    this.setState({
+      newMessage: false,
+      NewMessageUsers: "",
+      NewMessageMessage: "",
+    });
+  };
+  NewMessageTyping = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  NewMeesageFilterUser = () => {};
 }
 
 export default DashboardContainer;
