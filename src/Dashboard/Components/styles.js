@@ -36,7 +36,14 @@ const styles = theme => ({
     errorText: {
       color: 'red',
       textAlign: 'center'
+    },
+    profileEditImage: {
+        width: "300px",
+        height: "auto",
+        alignSelf: "center",
+        marginTop: "25px"
     }
   });
+
 
   export default styles;

@@ -55,7 +55,7 @@ class ProfileComponent extends React.Component {
                     <FormControl required fullWidth margin='normal'>
                         <InputLabel htmlFor="profile-image-input">Change Image</InputLabel>
                         <Input id='profile-image-input' onChange={(event) => {this.userTyping('image', event)}}></Input>
-                        <img className='ProfileEditImage' src={this.state.image}></img>
+                        <img className={classes.profileEditImage} src={this.state.image}></img>
                     </FormControl>
                     <FormControl required fullWidth margin='normal'>
                         <InputLabel htmlFor="profile-email-input">Change email: {this.state.email}</InputLabel>
