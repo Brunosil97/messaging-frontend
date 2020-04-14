@@ -1,12 +1,29 @@
 import React, { Component } from "react";
-import Data from "../../database";
+import ChatList from "./ChatList.js";
+import ShowChat from "./ShowChat.js";
 
 class DashboardContainer extends Component {
-  state = {};
+  state = {
+    selectedChat: "",
+  };
   render() {
-    console.log(Data);
-    return <div>Hello from dashboard</div>;
+    return (
+      <div>
+        <div className="Chats">
+          <ChatList
+            className="ChatList"
+            HandleSelectMessageClick={this.HandleSelectMessageClick}
+          />
+          {this.state.selectedChat !== "" ? (
+            <ShowChat className="ShowChat" chat={this.state.selectedChat} />
+          ) : null}
+        </div>
+      </div>
+    );
   }
+  HandleSelectMessageClick = (chat) => {
+    this.setState({ selectedChat: chat });
+  };
 }
 
 export default DashboardContainer;
