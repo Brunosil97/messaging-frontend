@@ -3,6 +3,7 @@ import ChatList from "./ChatList.js";
 import ShowChat from "./ShowChat.js";
 import NavBar from "../../NavBar/NavBar";
 import NewMessage from "./NewMessage";
+import API from '../../API'
 
 class DashboardContainer extends Component {
   state = {
@@ -10,7 +11,15 @@ class DashboardContainer extends Component {
     selectedChat: "",
     NewMessageUsers: "",
     NewMessageMessage: "",
+    chats: []
   };
+
+  componentDidMount() {
+    if(!this.props.email) {
+      this.props.history.push("/")
+    } 
+    // else {
+  }
 
   render() {
     return (
@@ -26,6 +35,7 @@ class DashboardContainer extends Component {
           <div className="Chats">
             <ChatList
               className="ChatList"
+             chats={this.state.chats}
               HandleSelectMessageClick={this.HandleSelectMessageClick}
               HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
             />

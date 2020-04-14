@@ -3,26 +3,36 @@ import ShowChat from "../Components/ShowChats";
 import Data from "../../database";
 import NewMessageBtn from "../Components/NewMessageBtn";
 
+
 export default class ChatList extends Component {
+
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     chats: []
+  //   }
+  // }
+
   render() {
-    const chats = Data.chats.map((chat, index) =>
-      chat.chatname.includes("test1@gmail.com") ? (
-        <ShowChat
-          friendName={this.findFriendName(chat.chatname)}
-          message={this.findLastMessage(chat.messages)}
-          key={index}
-          index={index}
-          chat={chat}
-          HandleSelectMessageClick={this.props.HandleSelectMessageClick}
-        />
-      ) : null
-    );
+
+    // const chats = Data.chats.map((chat, index) =>
+    //   chat.chatname.includes("test1@gmail.com") ? (
+    //     <ShowChat
+    //       friendName={this.findFriendName(chat.chatname)}
+    //       message={this.findLastMessage(chat.messages)}
+    //       key={index}
+    //       index={index}
+    //       chat={chat}
+    //       HandleSelectMessageClick={this.props.HandleSelectMessageClick}
+    //     />
+    //   ) : null
+    // );
     return (
       <div>
         <NewMessageBtn
           HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
         />
-        {chats}
+        {this.props.chats}
       </div>
     );
   }

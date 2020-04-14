@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import API from "../API"
+import {Redirect} from 'react-router-dom';
 
 class LoginComponent extends React.Component {
     constructor() {
@@ -21,7 +23,10 @@ class LoginComponent extends React.Component {
     }
     submitLogin = event => {
         event.preventDefault()
-        this.props.history.push('/home')
+        const {history} = this.props
+        API.signIn(this.state)
+          .then(json => this.props.signIn(json.email, json.token))
+          .then(history.push("/home"))
         }
         
     userTyping = (type, event) => {
@@ -57,7 +62,7 @@ class LoginComponent extends React.Component {
                     {
                         this.state.loginError ?
                         <Typography className={classes.errorText} component='h5' varaiant='h6'>
-                            Incorrect Login Information
+                            {/* {this.state.loginError} */}
                         </Typography>: null
                     }
                     <Typography component='h5' variant='h6' className={classes.noAccountHeader}>Don't have an account?</Typography>
