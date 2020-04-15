@@ -24,10 +24,10 @@ class DashboardContainer extends Component {
         chats: json
       }, () => console.log(this.state.chats)
       )})
+
     }
   }
   
-
   render() {
     return (
       <div className="Dashboard">

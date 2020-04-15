@@ -12,6 +12,14 @@ export default class ChatList extends Component {
   //     chats: []
   //   }
   // }
+  createChatList = () => {
+    console.log(this.props.chats)
+    // const chats = this.props.chats.chats.map((chat, index) => {
+    //   return <ShowChat key={index} chat={chat} 
+    //   message={this.findLastMessage(chat.messages)}/>
+    // })
+    // return chats 
+  }
 
   render() {
 
@@ -30,7 +38,7 @@ export default class ChatList extends Component {
         <NewMessageBtn
           HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
         />
-        {/* {this.chats} */}
+        {this.createChatList()}
       </div>
     );
   }
