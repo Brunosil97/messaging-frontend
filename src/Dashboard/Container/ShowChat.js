@@ -11,7 +11,6 @@ export default class ShowChat extends Component {
   }
   render() {
     const chats = this.props.chat.messages.map((message, index) => {
-      debugger;
       return (
         <ShowMessage message={message} key={index} user={this.props.user} />
       );
