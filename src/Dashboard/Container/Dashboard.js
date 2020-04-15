@@ -17,9 +17,17 @@ class DashboardContainer extends Component {
   componentDidMount() {
     if(!this.props.email) {
       this.props.history.push("/")
-    } 
-    // else {
+    } else {
+      API.getChats(localStorage.token)
+      .then(json => {
+        debugger
+        this.setState({
+        chats: json.chats
+      }, () => console.log(this.state.chat)
+      )})
+    }
   }
+  
 
   render() {
     return (

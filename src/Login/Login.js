@@ -26,7 +26,7 @@ class LoginComponent extends React.Component {
         const {history} = this.props
         API.signIn(this.state)
           .then(json => this.props.signIn(json.email, json.token))
-          .then(history.push("/home"))
+          .then(() => history.push("/home"))
         }
         
     userTyping = (type, event) => {
