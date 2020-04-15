@@ -8,17 +8,36 @@ const post = (url, data) => {
   const configurationObject = {
     method: "POST",
     headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
-  }
-  return fetch(url, configurationObject)
-}
+    body: JSON.stringify(data),
+  };
+  return fetch(`${baseURL}/${url}`, configurationObject)
+    .then(console.log);
+};
+
+const patch = (url, data) => {
+  const configurationObject = {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  return fetch(`${baseURL}/${url}`, configurationObject).then((res) =>
+    res.json()
+  );
+};
+
+const getFetch = (url) => {
+  return fetch(`${baseURL}/${url}`).then((res) => res.json());
+};
 
 const get = (url, token) => {
-  return token ? fetch(url, { headers: { AUTHORIZATION: token } }) : fetch(url)
-}
+  return token ? fetch(url, { headers: { AUTHORIZATION: token } }) : fetch(url);
+};
 
 const validate = token => {
   return get(validateURL, token).then(response => response.json())
@@ -32,5 +51,5 @@ const getChats = token => {
     return get(chatsURL, token).then(response => response.json())
   }
 
-
-export default { signIn, validate, getChats}
+// Export the necessary functions as part of one object which we will import elsewhere
+export default { signIn, validate, getFetch, patch, post };

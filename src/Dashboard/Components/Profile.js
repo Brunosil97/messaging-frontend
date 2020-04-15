@@ -8,6 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import NavBar from "../../NavBar/NavBar";
+import { getFetch } from "../../API";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -25,7 +26,6 @@ class ProfileComponent extends React.Component {
 
   submitChanges = (event) => {
     event.preventDefault();
-    console.log(this.state);
   };
 
   userTyping = (type, event) => {
