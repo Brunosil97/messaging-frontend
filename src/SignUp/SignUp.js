@@ -9,6 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import API from "../API";
 
 class LoginComponent extends React.Component {
   state = {
@@ -19,18 +20,17 @@ class LoginComponent extends React.Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
+    if (this.state.password !== this.state.passwordConfirmation) {
+      alert("The user could not be created");
+      return;
+    }
+    API.post("users", {
+      email: this.state.email,
+      password: this.state.password,
+      password_confirmation: this.state.passwordConfirmation,
+      name: "Amy",
+    }).then(console.log);
     return this.props.history.push("/home");
-    // return fetch(Data, {
-    //      method: "POST",
-    //      headers: {
-    //          'Content-Type': 'application/json',
-    //          'Accept': 'application/json'
-    //      },
-    //      body: JSON.stringify(event.target.value)
-    //  })
-    //  .then(res => res.json())
-    //  .then(data => console.log(data))
-    //  .then(() => this.props.history.push("/home"))
   };
 
   addUserToState = (event) => {
@@ -42,7 +42,7 @@ class LoginComponent extends React.Component {
         this.setState({ password: event.target.value });
         break;
       case "confirm-password":
-        this.setState({ password: event.target.value });
+        this.setState({ passwordConfirmation: event.target.value });
         break;
       default:
         break;

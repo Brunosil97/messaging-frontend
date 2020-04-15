@@ -1,5 +1,4 @@
 import React from 'react'
-import NavBar from './NavBar/NavBar'
 import { Route } from 'react-router-dom'
 // Import an object containing all of our functions which will communicate with the server and name it API
 import API from "./API.js"
