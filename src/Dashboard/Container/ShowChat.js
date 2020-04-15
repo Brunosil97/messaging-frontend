@@ -10,9 +10,12 @@ export default class ShowChat extends Component {
     };
   }
   render() {
-    const chats = this.props.chat.messages.map((message, index) => (
-      <ShowMessage message={message} user="test1@gmail.com" key={index} />
-    ));
+    const chats = this.props.chat.messages.map((message, index) => {
+      debugger;
+      return (
+        <ShowMessage message={message} key={index} user={this.props.user} />
+      );
+    });
     return (
       <div className="DisplayMessages">
         <div className="Messages">{chats}</div>
