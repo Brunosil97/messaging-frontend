@@ -20,7 +20,6 @@ class DashboardContainer extends Component {
     } else {
       API.getChats(localStorage.token)
       .then(json => {
-        debugger
         this.setState({
         chats: json
       }, () => console.log(this.state.chats)
@@ -43,7 +42,7 @@ class DashboardContainer extends Component {
           <div className="Chats">
             <ChatList
               className="ChatList"
-             chats={this.state.chats}
+              chats={this.state.chats}
               HandleSelectMessageClick={this.HandleSelectMessageClick}
               HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
             />

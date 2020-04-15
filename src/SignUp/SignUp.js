@@ -13,6 +13,7 @@ import API from "../API";
 
 class LoginComponent extends React.Component {
   state = {
+    name: '',
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -29,10 +30,10 @@ class LoginComponent extends React.Component {
         email: this.state.email,
         password: this.state.password,
         password_confirmation: this.state.passwordConfirmation,
-        name: "Amy",
+        name: this.state.name,
       },
-    }).then(console.log);
-    return this.props.history.push("/home");
+    }).then(() => this.props.history.push("/"));
+
   };
 
   addUserToState = (event) => {
@@ -45,6 +46,9 @@ class LoginComponent extends React.Component {
         break;
       case "confirm-password":
         this.setState({ passwordConfirmation: event.target.value });
+        break;
+      case "name":
+        this.setState({ name: event.target.value });
         break;
       default:
         break;
@@ -60,9 +64,18 @@ class LoginComponent extends React.Component {
             Instant Messaging
           </Typography>
           <form onSubmit={(e) => this.onFormSubmit(e)}>
+          <FormControl required fullWidth margin="normal">
+              <InputLabel>Name</InputLabel>
+              <Input
+                name="name"
+                focus="true"
+                onChange={(e) => this.addUserToState(e)}
+              ></Input>
+            </FormControl>
             <FormControl required fullWidth margin="normal">
               <InputLabel>Email</InputLabel>
               <Input
+                type="email"
                 name="email"
                 onChange={(e) => this.addUserToState(e)}
                 autoComplete="email"
@@ -71,6 +84,7 @@ class LoginComponent extends React.Component {
             <FormControl required fullWidth margin="normal">
               <InputLabel>Password</InputLabel>
               <Input
+                type="password"
                 name="password"
                 onChange={(e) => this.addUserToState(e)}
               ></Input>
@@ -78,6 +92,7 @@ class LoginComponent extends React.Component {
             <FormControl required fullWidth margin="normal">
               <InputLabel>Confirm Password</InputLabel>
               <Input
+                type="password"
                 name="confirm-password"
                 onChange={(e) => this.addUserToState(e)}
               ></Input>

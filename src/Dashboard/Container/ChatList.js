@@ -15,8 +15,7 @@ export default class ChatList extends Component {
 
   render() {
 
-    // const chats = Data.chats.map((chat, index) =>
-    //   chat.chatname.includes("test1@gmail.com") ? (
+    // const chats = this.props.chats.map((chat, index) =>
     //     <ShowChat
     //       friendName={this.findFriendName(chat.chatname)}
     //       message={this.findLastMessage(chat.messages)}
@@ -25,14 +24,13 @@ export default class ChatList extends Component {
     //       chat={chat}
     //       HandleSelectMessageClick={this.props.HandleSelectMessageClick}
     //     />
-    //   ) : null
-    // );
+    //   ) 
     return (
       <div>
         <NewMessageBtn
           HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
         />
-        {/* {this.props.chats} */}
+        {/* {this.chats} */}
       </div>
     );
   }

@@ -2,7 +2,7 @@
 const baseURL = "http://localhost:3000"
 const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
-const chatsURL = `${baseURL}/chats`
+const chatsURL = `${baseURL}/chats_for_users`
 
 const post = (url, data) => {
   const configurationObject = {
@@ -13,9 +13,10 @@ const post = (url, data) => {
     },
     body: JSON.stringify(data),
   };
-  return fetch(`${baseURL}/${url}`, configurationObject)
-    .then(console.log);
-};
+  return fetch(`${baseURL}/${url}`, configurationObject).then((res) =>
+  res.json()
+  )
+}
 
 const patch = (url, data) => {
   const configurationObject = {
@@ -44,12 +45,11 @@ const validate = token => {
 }
 
 const signIn = data => {
-  return post(signInURL, data).then(response => response.json())
+  return post("sign-in", data)
 }
 
 const getChats = token => {
     return get(chatsURL, token).then(response => response.json())
   }
 
-// Export the necessary functions as part of one object which we will import elsewhere
-export default { signIn, validate, getFetch, patch, post };
+export default { signIn, validate, getFetch, patch, post, getChats };
