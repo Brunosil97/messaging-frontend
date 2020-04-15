@@ -3,7 +3,16 @@ import ChatList from "./ChatList.js";
 import ShowChat from "./ShowChat.js";
 import NavBar from "../../NavBar/NavBar";
 import NewMessage from "./NewMessage";
-import API from '../../API'
+import API from "../../API";
+
+function parseJwt(token) {
+  if (!token) {
+    return;
+  }
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace("-", "+").replace("_", "/");
+  return JSON.parse(window.atob(base64));
+}
 
 class DashboardContainer extends Component {
   state = {
@@ -11,23 +20,30 @@ class DashboardContainer extends Component {
     selectedChat: "",
     NewMessageUsers: "",
     NewMessageMessage: "",
-    chats: []
+    chats: null,
+    user: null,
   };
 
   componentDidMount() {
-    if(!this.props.email) {
-      this.props.history.push("/")
+    if (!this.props.email) {
+      this.props.history.push("/");
     } else {
-      API.getChats(localStorage.token)
-      .then(json => {
-        this.setState({
-        chats: json
-      }, () => console.log(this.state.chats)
-      )})
-
+      API.getChats(localStorage.token).then((json) => {
+        this.setState(
+          {
+            chats: json,
+          },
+          () => console.log(this.state.chats)
+        );
+      });
+      const userId = parseJwt(localStorage.token);
+      console.log(userId);
+      API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
+        this.setState({ user: res })
+      );
     }
   }
-  
+
   render() {
     return (
       <div className="Dashboard">
@@ -40,14 +56,21 @@ class DashboardContainer extends Component {
           />
         ) : (
           <div className="Chats">
-            <ChatList
-              className="ChatList"
-              chats={this.state.chats}
-              HandleSelectMessageClick={this.HandleSelectMessageClick}
-              HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
-            />
+            {this.state.chats ? (
+              <ChatList
+                className="ChatList"
+                chats={this.state.chats}
+                user={this.props.email}
+                HandleSelectMessageClick={this.HandleSelectMessageClick}
+                HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
+              />
+            ) : null}
             {this.state.selectedChat !== "" ? (
-              <ShowChat className="ShowChat" chat={this.state.selectedChat} />
+              <ShowChat
+                className="ShowChat"
+                chat={this.state.selectedChat}
+                user={this.state.user}
+              />
             ) : null}
           </div>
         )}
