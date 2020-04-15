@@ -25,10 +25,12 @@ class LoginComponent extends React.Component {
       return;
     }
     API.post("users", {
-      email: this.state.email,
-      password: this.state.password,
-      password_confirmation: this.state.passwordConfirmation,
-      name: "Amy",
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.passwordConfirmation,
+        name: "Amy",
+      },
     }).then(console.log);
     return this.props.history.push("/home");
   };
