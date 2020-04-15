@@ -32,7 +32,7 @@ export default class ChatList extends Component {
         <NewMessageBtn
           HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
         />
-        {this.props.chats}
+        {/* {this.props.chats} */}
       </div>
     );
   }

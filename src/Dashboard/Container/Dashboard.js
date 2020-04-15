@@ -22,8 +22,8 @@ class DashboardContainer extends Component {
       .then(json => {
         debugger
         this.setState({
-        chats: json.chats
-      }, () => console.log(this.state.chat)
+        chats: json
+      }, () => console.log(this.state.chats)
       )})
     }
   }
