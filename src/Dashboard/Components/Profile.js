@@ -16,11 +16,11 @@ class ProfileComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: "Nomis",
+      // name: "Nomis",
       image:
         "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      email: "nomis@nomis.com",
-      user_status: "",
+      // email: "nomis@nomis.com",
+      // user_status: "",
     };
   }
 
@@ -61,7 +61,7 @@ class ProfileComponent extends React.Component {
             >
               <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="profile-name-input">
-                  Change name: {this.state.name}
+                  Change name: {this.props.user.name}
                 </InputLabel>
                 <Input
                   autoComplete="name"
@@ -89,7 +89,7 @@ class ProfileComponent extends React.Component {
               </FormControl>
               <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="profile-email-input">
-                  Change email: {this.state.email}
+                  Change email: {this.props.user.email}
                 </InputLabel>
                 <Input
                   autoComplete="email"

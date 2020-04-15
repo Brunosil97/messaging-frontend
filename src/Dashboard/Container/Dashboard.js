@@ -5,14 +5,14 @@ import NavBar from "../../NavBar/NavBar";
 import NewMessage from "./NewMessage";
 import API from "../../API";
 
-function parseJwt(token) {
-  if (!token) {
-    return;
-  }
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace("-", "+").replace("_", "/");
-  return JSON.parse(window.atob(base64));
-}
+// function parseJwt(token) {
+//   if (!token) {
+//     return;
+//   }
+//   const base64Url = token.split(".")[1];
+//   const base64 = base64Url.replace("-", "+").replace("_", "/");
+//   return JSON.parse(window.atob(base64));
+// }
 
 class DashboardContainer extends Component {
   state = {
@@ -21,7 +21,7 @@ class DashboardContainer extends Component {
     NewMessageUsers: "",
     NewMessageMessage: "",
     chats: null,
-    user: null,
+    // user: null,
   };
 
   componentDidMount() {
@@ -33,14 +33,13 @@ class DashboardContainer extends Component {
           {
             chats: json,
           },
-          () => console.log(this.state.chats)
         );
       });
-      const userId = parseJwt(localStorage.token);
-      console.log(userId);
-      API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
-        this.setState({ user: res })
-      );
+      // const userId = parseJwt(localStorage.token);
+      // console.log(userId);
+      // API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
+      //   this.setState({ user: res })
+      // );
     }
   }
 
@@ -69,7 +68,7 @@ class DashboardContainer extends Component {
               <ShowChat
                 className="ShowChat"
                 chat={this.state.selectedChat}
-                user={this.state.user}
+                user={this.props.user}
               />
             ) : null}
           </div>

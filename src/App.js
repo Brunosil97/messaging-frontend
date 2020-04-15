@@ -1,7 +1,6 @@
 import React from 'react'
 import NavBar from './NavBar/NavBar'
 import { Route } from 'react-router-dom'
-// Import an object containing all of our functions which will communicate with the server and name it API
 import API from "./API.js"
 import './App.css'
 import LoginComponent from '../src/Login/Login'
@@ -9,11 +8,21 @@ import SignUpComponent from '../src/SignUp/SignUp'
 import DashboardContainer from '../src/Dashboard/Container/Dashboard'
 import ProfileComponent from '../src/Dashboard/Components/Profile'
 
+function parseJwt(token) {
+  if (!token) {
+    return;
+  }
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace("-", "+").replace("_", "/");
+  return JSON.parse(window.atob(base64));
+}
+
 class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      email: null
+      email: null,
+      user: null
     }
   }
 
@@ -22,6 +31,11 @@ class App extends React.Component {
       API.validate(localStorage.token)
         .then(json => this.signIn(json.email, json.token))
     }
+    const userId = parseJwt(localStorage.token);
+    console.log(userId);
+    API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
+      this.setState({ user: res })
+    );
   }
   
   signIn = (email, token) => {
@@ -42,8 +56,8 @@ class App extends React.Component {
       <div >
     <Route exact path="/" component={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
-     <Route exact path="/home" component={(props) => <DashboardContainer {...props} email={this.state.email}/>}></Route>
-     <Route exact path="/profile" component={ProfileComponent}></Route>
+     <Route exact path="/home" component={(props) => <DashboardContainer {...props} email={this.state.email} user={this.state.user}/>}></Route>
+     <Route exact path="/profile" component={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
       </div>
     )
   }
