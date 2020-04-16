@@ -21,34 +21,45 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      id: null,
-      name: "",
-      email: "",
-
+      user: {
+        id: null,
+        name: "",
+        email: "",
+        profileImage: null
+      }
     }
   }
 
   componentDidMount() {
     if (localStorage.token) {
       API.validate(localStorage.token)
-        .then(user => this.signIn(user))
-        .then(() => this.props.history.push('/home'))
+        .then( user => this.signIn(user))
     }
-    // const userId = parseJwt(localStorage.token);
-    // console.log(userId);
-    // API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
-    //   this.setState({ user: res })
-    // );
   }
   
   signIn = (user) => {
-    this.setState( user )
+    localStorage.token = user.token
+    user.token = undefined
+    this.setState({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileImage
+      }
+    })
   }
+  
+
   signOut = () => {
     this.setState({
-      id: null,
-      name: "",
-      email: ""
+      user: {
+        ...this.state.user, 
+        id: null,
+        name: "",
+        email: "",
+        profileImage: ""
+      }
     })
     localStorage.removeItem("token")
   }
@@ -58,7 +69,7 @@ class App extends React.Component {
       <div >
     <Route exact path="/" component={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
-     <Route exact path="/home" component={(props) => <DashboardContainer signOut={this.signOut} {...props} email={this.state.email} user={this.state.user}/>}></Route>
+     <Route exact path="/home" component={(props) => <DashboardContainer signOut={this.signOut} {...props}  user={this.state.user}/>}></Route>
      <Route exact path="/profile" component={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
       </div>
     )

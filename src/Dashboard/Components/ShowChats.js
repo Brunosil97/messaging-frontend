@@ -15,10 +15,10 @@ export default function ShowChats({
       onClick={() => HandleSelectMessageClick(chat)}
     >
       <ListItemAvatar>
-        <Avatar className="Avatar">{friendName[0].toUpperCase()}</Avatar>
+        {/* <Avatar className="Avatar">{friendName[0].toUpperCase()}</Avatar> */}
       </ListItemAvatar>
       <div className="ChatInfo">
-        <h3>{friendName}</h3>
+        {/* <h3>{friendName}</h3> */}
         <p>{message}</p>
       </div>
     </div>

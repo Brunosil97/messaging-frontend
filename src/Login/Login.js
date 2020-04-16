@@ -23,10 +23,9 @@ class LoginComponent extends React.Component {
     }
     submitLogin = event => {
         event.preventDefault()
-        const {history} = this.props
         API.signIn(this.state)
-          .then(json => this.props.signIn(json.email, json.token))
-          .then(() => history.push("/home"))
+          .then(user => this.props.signIn(user))
+          .then(() => this.props.history.push("/home"))
         }
         
     userTyping = (type, event) => {

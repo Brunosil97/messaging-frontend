@@ -16,13 +16,13 @@ class DashboardContainer extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.email) {
+    if (!this.props.user) {
       this.props.history.push("/");
     } else {
-      API.getChats(localStorage.token).then((json) => {
+      API.getChats(localStorage.token).then((chats) => {
         this.setState(
           {
-            chats: json,
+            chats: chats
           },
         );
       });

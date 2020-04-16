@@ -15,7 +15,7 @@ export default class ChatList extends Component {
   render() {
     const chats = this.props.chats.map((chat, index) => (
       <ShowChat
-        friendName={this.findFriendName(chat.users)}
+        // friendName={this.findFriendName(chat.users)}
         message={this.findLastMessage(chat.messages)}
         key={index}
         index={index}
