@@ -8,7 +8,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import NavBar from "../../NavBar/NavBar";
-import { getFetch } from "../../API";
+import API from "../../API";
+
 
 import Paper from "@material-ui/core/Paper";
 
@@ -16,16 +17,32 @@ class ProfileComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-      // name: "Nomis",
+      name: "",
       image:
         "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      // email: "nomis@nomis.com",
-      // user_status: "",
+      email: "",
+      user_status: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      name: this.props.user.name,
+      image: this.state.image,
+      email: this.props.user.email
+    })
   }
 
   submitChanges = (event) => {
     event.preventDefault();
+    API.patch(`users/${this.props.user.id}`, {
+      user: {
+        name: this.state.name,
+        profileImage: this.state.image,
+        email: this.state.email
+      }
+    })
+
   };
 
   userTyping = (type, event) => {

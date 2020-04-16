@@ -5,15 +5,6 @@ import NavBar from "../../NavBar/NavBar";
 import NewMessage from "./NewMessage";
 import API from "../../API";
 
-// function parseJwt(token) {
-//   if (!token) {
-//     return;
-//   }
-//   const base64Url = token.split(".")[1];
-//   const base64 = base64Url.replace("-", "+").replace("_", "/");
-//   return JSON.parse(window.atob(base64));
-// }
-
 class DashboardContainer extends Component {
   state = {
     newMessage: false,
@@ -35,11 +26,6 @@ class DashboardContainer extends Component {
           },
         );
       });
-      // const userId = parseJwt(localStorage.token);
-      // console.log(userId);
-      // API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
-      //   this.setState({ user: res })
-      // );
     }
   }
 
