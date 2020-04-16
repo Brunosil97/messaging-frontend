@@ -47,7 +47,7 @@ class DashboardContainer extends Component {
               <ChatList
                 className="ChatList"
                 chats={this.state.chats}
-                user={this.props.email}
+                user={this.props.user}
                 HandleSelectMessageClick={this.HandleSelectMessageClick}
                 HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
               />

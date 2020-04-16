@@ -15,7 +15,7 @@ export default class ChatList extends Component {
   render() {
     const chats = this.props.chats.map((chat, index) => (
       <ShowChat
-        // friendName={this.findFriendName(chat.users)}
+        friendName={this.findFriendName(chat.users)}
         message={this.findLastMessage(chat.messages)}
         key={index}
         index={index}
@@ -38,7 +38,8 @@ export default class ChatList extends Component {
     return messages[messages.length - 1].content.substring(0, 15) + "...";
   };
   findFriendName = (users) => {
-    const friend = users.filter((user) => user.email !== this.props.user);
-    return friend[0].name;
+
+    const friend = users.find((user) => user.id !== this.props.user.id);
+    return friend.name;
   };
 }
