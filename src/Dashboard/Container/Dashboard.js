@@ -13,7 +13,7 @@ class DashboardContainer extends Component {
     NewMessageUserId: null, 
     NewMessageMessage: "",
     chats: null,
-    user: null,
+    // user: null,
     newChat_id: null
   };
 
@@ -74,43 +74,16 @@ class DashboardContainer extends Component {
   HandleNewMessageSubmit = async (e) => {
     e.preventDefault()
 
-    // await API.post("chats", {hasRead: false})
-    // .then(res => (this.setState({newChat_id: res.id})))
-
-    // API.post("messages", {
-    //   message: {
-    //     content: this.state.NewMessageMessage,
-    //     chat_id: this.state.newChat_id,
-    //     user_id: this.state.user.id
-    //   }
-    // })
-
-    // API.post("user_in_chats", {
-    //   user_in_chat: {
-    //     chat_id: this.state.newChat_id,
-    //     user_id: this.state.user.id
-    //   }
-    // })
-
-    // API.getFetch("users")
-    // .then(res => res.map(user => {
-    //   return user.email === this.state.NewMessageUsers
-    //   ? this.setState({NewMessageUserId: user.id}) 
-    //   : null }))
-
-    // await API.post("user_in_chats", {
-    //     user_in_chat: {
-    //       chat_id: this.state.newChat_id,
-    //       user_id: this.state.NewMessageUserId
-    //     }
-    //   })
-      
-    // await this.setState({
-    //   newMessage: false,
-    //   NewMessageUsers: "",
-    //   NewMessageMessage: "",
-    // })
+    API.post("new_message", {
+      chat: {
+        hasRead: false
+      },
+      user_id: this.props.user.id,
+      email: this.state.NewMessageUsers,
+      content: this.state.NewMessageMessage
+    })
   };
+
   ResetNewMessageBack = () => {
     this.setState({
       newMessage: false,
