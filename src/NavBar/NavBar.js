@@ -37,7 +37,8 @@ const ButtonAppBar = (props) => {
               Profile
             </NavLink>
           </Button>
-          <Button color="inherit" className={classes.title}>
+          <Button onClick={() => props.signOut()}
+          color="inherit" className={classes.title}>
             <NavLink to="/" exact>
               Sign Out
             </NavLink>

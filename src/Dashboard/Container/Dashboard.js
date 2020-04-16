@@ -32,7 +32,7 @@ class DashboardContainer extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <NavBar ResetNewMessageBack={this.ResetNewMessageBack} />
+        <NavBar signOut={this.props.signOut} ResetNewMessageBack={this.ResetNewMessageBack} />
         {this.state.newMessage ? (
           <NewMessage
             HandleNewMessageSubmit={this.HandleNewMessageSubmit}

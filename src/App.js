@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar from './NavBar/NavBar'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import API from "./API.js"
 import './App.css'
 import LoginComponent from '../src/Login/Login'
@@ -21,42 +21,44 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      email: null,
-      user: null
+      id: null,
+      name: "",
+      email: "",
+
     }
   }
 
   componentDidMount() {
     if (localStorage.token) {
       API.validate(localStorage.token)
-        .then(json => this.signIn(json.email, json.token))
+        .then(user => this.signIn(user))
+        .then(() => this.props.history.push('/home'))
     }
-    const userId = parseJwt(localStorage.token);
-    console.log(userId);
-    API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
-      this.setState({ user: res })
-    );
+    // const userId = parseJwt(localStorage.token);
+    // console.log(userId);
+    // API.getFetch(`users/${parseJwt(localStorage.token).id}`).then((res) =>
+    //   this.setState({ user: res })
+    // );
   }
   
-  signIn = (email, token) => {
-    this.setState({
-      email
-    })
-    localStorage.token = token
+  signIn = (user) => {
+    this.setState( user )
   }
-//   signOut = () => {
-//     this.setState({
-//       email: null
-//     })
-//     localStorage.removeItem("token")
-//   }
+  signOut = () => {
+    this.setState({
+      id: null,
+      name: "",
+      email: ""
+    })
+    localStorage.removeItem("token")
+  }
 
   render(){
     return (
       <div >
     <Route exact path="/" component={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
-     <Route exact path="/home" component={(props) => <DashboardContainer {...props} email={this.state.email} user={this.state.user}/>}></Route>
+     <Route exact path="/home" component={(props) => <DashboardContainer signOut={this.signOut} {...props} email={this.state.email} user={this.state.user}/>}></Route>
      <Route exact path="/profile" component={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
       </div>
     )
@@ -64,4 +66,4 @@ class App extends React.Component {
 }
 
 
-export default App
+export default withRouter(App)
