@@ -46,7 +46,7 @@ class LoginComponent extends React.Component {
             <main className={classes.main}>
                 <CssBaseline></CssBaseline>
                 <Paper className={classes.paper}>
-                    <Typography component='h1' variant='h5'>Log in!</Typography>
+                    <Typography component='h1' variant='h5'>Chat Mates</Typography>
                     <form className={classes.form} onSubmit={(event) => this.submitLogin(event)}>
                         <FormControl required fullWidth margin='normal'>
                             <InputLabel htmlFor="login-email-input">Enter email</InputLabel>

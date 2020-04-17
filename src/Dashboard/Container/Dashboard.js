@@ -28,20 +28,20 @@ class DashboardContainer extends Component {
   componentDidMount() {
     if (!this.props.user) {
       this.props.history.push("/");
-    } else {
+    } 
+    else {
       API.getChats(localStorage.token).then((chats) => {
         this.setState({
           chats: chats,
         });
       });
-
       this.cable = Cable.createConsumer("ws://localhost:3000/cable");
-      this.chatsChannel = this.cable.subscriptions.create(
-        { channel: "ChatsChannel", chat_id: 1 },
-        {
-          received: (data) => console.log("cable says ", data),
-        }
-      );
+      // this.chatsChannel = this.cable.subscriptions.create(
+      //   { channel: "ChatsChannel", chat_id: 1 },
+      //   {
+      //     received: (data) => console.log("cable says ", data),
+      //   }
+      // );
     }
   }
 
