@@ -92,31 +92,27 @@ class DashboardContainer extends Component {
   HandleNewMessageSubmit = (e) => {
     e.preventDefault();
 
-    this.chatsChannel.perform("send_message", {
-      chat: {
-        hasRead: false,
-      },
-      user_id: this.props.user.id,
-      email: this.state.NewMessageUsers,
-      content: this.state.NewMessageMessage,
-    });
+    // this.chatsChannel.perform("send_message", {
+    //   chat: {
+    //     hasRead: false,
+    //   },
+    //   user_id: this.props.user.id,
+    //   email: this.state.NewMessageUsers,
+    // });
 
-    API.post("new_chat_with_message", {
+    API.post("new_chat", {
       chat: {
         hasRead: false,
       },
       user_id: this.props.user.id,
       email: this.state.NewMessageUsers,
-      content: this.state.NewMessageMessage,
     });
     this.props.history.push("/home");
   };
 
   ResetNewMessageBack = () => {
     this.setState({
-      newMessage: false,
       NewMessageUsers: "",
-      NewMessageMessage: "",
     });
   };
   NewMessageTyping = (e) => {

@@ -11,7 +11,7 @@ export default class NewMessage extends Component {
       <div className="NewMessageStyle">
         <Paper className="NewMessagePaper">
           <Typography component="h1" variant="h5">
-            New Message
+            New Chat
           </Typography>
           <form onSubmit={this.props.HandleNewMessageSubmit}>
             <FormControl required fullWidth margin="normal">
@@ -23,17 +23,8 @@ export default class NewMessage extends Component {
                 onKeyUp={this.props.NewMessageTyping}
               ></Input>
             </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <Input
-                autoComplete="message"
-                id="message-input"
-                placeholder="New Message"
-                name="NewMessageMessage"
-                onKeyUp={this.props.NewMessageTyping}
-              ></Input>
-            </FormControl>
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Send Message
+              Start Chat
             </Button>
           </form>
           <h3 onClick={this.props.HandleNewMessageBack}>Go Back</h3>

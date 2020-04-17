@@ -9,7 +9,7 @@ export default class ShowChat extends Component {
     super();
     this.state = {
       chatText: "",
-      messages: props.chat.messages,
+      messages: props.chat.messages
     };
   }
   componentDidMount() {
@@ -27,11 +27,11 @@ export default class ShowChat extends Component {
   }
 
   render() {
-    const chats = this.state.messages.map((message, index) => {
+    const chats = this.state.messages.length > 0 ? this.state.messages.map((message, index) => {
       return (
         <ShowMessage message={message} key={index} user={this.props.user} />
       );
-    });
+    }) : null;
 
     return (
       <div className="DisplayMessages">
