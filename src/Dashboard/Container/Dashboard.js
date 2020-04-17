@@ -4,37 +4,54 @@ import ShowChat from "./ShowChat.js";
 import NavBar from "../../NavBar/NavBar";
 import NewMessage from "./NewMessage";
 import API from "../../API";
+import Cable from "actioncable";
 
 class DashboardContainer extends Component {
-  state = {
-    newMessage: false,
-    selectedChat: "",
-    NewMessageUsers: "",
-    NewMessageUserId: null, 
-    NewMessageMessage: "",
-    chats: null,
-    // user: null,
-    newChat_id: null
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      newMessage: false,
+      selectedChat: null,
+      NewMessageUsers: "",
+      NewMessageUserId: null,
+      NewMessageMessage: "",
+      chats: null,
+      // user: null,
+      newChat_id: null,
+    };
+
+    this.chatsChannel = null;
+    this.cable = null;
+  }
 
   componentDidMount() {
     if (!this.props.user) {
       this.props.history.push("/");
     } else {
       API.getChats(localStorage.token).then((chats) => {
-        this.setState(
-          {
-            chats: chats
-          },
-        );
+        this.setState({
+          chats: chats,
+        });
       });
+
+      this.cable = Cable.createConsumer("ws://localhost:3000/cable");
+      this.chatsChannel = this.cable.subscriptions.create(
+        { channel: "ChatsChannel", chat_id: 1 },
+        {
+          received: (data) => console.log("cable says ", data),
+        }
+      );
     }
   }
 
   render() {
     return (
       <div className="Dashboard">
-        <NavBar signOut={this.props.signOut} ResetNewMessageBack={this.ResetNewMessageBack} />
+        <NavBar
+          signOut={this.props.signOut}
+          ResetNewMessageBack={this.ResetNewMessageBack}
+        />
         {this.state.newMessage ? (
           <NewMessage
             HandleNewMessageSubmit={this.HandleNewMessageSubmit}
@@ -52,8 +69,9 @@ class DashboardContainer extends Component {
                 HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
               />
             ) : null}
-            {this.state.selectedChat !== "" ? (
+            {this.state.selectedChat !== null ? (
               <ShowChat
+                cable={this.cable}
                 className="ShowChat"
                 chat={this.state.selectedChat}
                 user={this.props.user}
@@ -70,18 +88,28 @@ class DashboardContainer extends Component {
   HandleNewMessageBtnClick = () => {
     this.setState({ newMessage: !this.state.newMessage });
   };
- 
-  HandleNewMessageSubmit = async (e) => {
-    e.preventDefault()
 
-    API.post("new_message", {
+  HandleNewMessageSubmit = (e) => {
+    e.preventDefault();
+
+    this.chatsChannel.perform("send_message", {
       chat: {
-        hasRead: false
+        hasRead: false,
       },
       user_id: this.props.user.id,
       email: this.state.NewMessageUsers,
-      content: this.state.NewMessageMessage
-    })
+      content: this.state.NewMessageMessage,
+    });
+
+    API.post("new_chat_with_message", {
+      chat: {
+        hasRead: false,
+      },
+      user_id: this.props.user.id,
+      email: this.state.NewMessageUsers,
+      content: this.state.NewMessageMessage,
+    });
+    this.props.history.push("/home");
   };
 
   ResetNewMessageBack = () => {

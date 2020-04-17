@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ShowChat from "../Components/ShowChats";
-import Data from "../../database";
 import NewMessageBtn from "../Components/NewMessageBtn";
 import API from "../../API";
 
