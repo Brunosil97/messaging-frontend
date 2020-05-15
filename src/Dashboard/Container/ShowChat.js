@@ -16,8 +16,10 @@ export default class ShowChat extends Component {
     this.messagesChannel = this.props.cable.subscriptions.create(
       { channel: "MessagesChannel", chat_id: this.props.chat.id },
       {
-        received: (data) =>
-          this.setState({ messages: [...this.state.messages, data] }),
+        received: (data) =>{ 
+          this.setState({ messages: [...this.state.messages, data] })
+          this.props.handleSubmitNewMessage()
+        }
       }
     );
   }

@@ -36,12 +36,6 @@ class DashboardContainer extends Component {
         });
       });
       this.cable = Cable.createConsumer("ws://localhost:3000/cable");
-      // this.chatsChannel = this.cable.subscriptions.create(
-      //   { channel: "ChatsChannel", chat_id: 1 },
-      //   {
-      //     received: (data) => console.log("cable says ", data),
-      //   }
-      // );
     }
   }
 
@@ -75,6 +69,7 @@ class DashboardContainer extends Component {
                 className="ShowChat"
                 chat={this.state.selectedChat}
                 user={this.props.user}
+                handleSubmitNewMessage={this.handleSubmitNewMessage}
               />
             ) : null}
           </div>
@@ -91,14 +86,6 @@ class DashboardContainer extends Component {
 
   HandleNewMessageSubmit = (e) => {
     e.preventDefault();
-
-    // this.chatsChannel.perform("send_message", {
-    //   chat: {
-    //     hasRead: false,
-    //   },
-    //   user_id: this.props.user.id,
-    //   email: this.state.NewMessageUsers,
-    // });
 
     API.post("new_chat", {
       chat: {
@@ -118,7 +105,14 @@ class DashboardContainer extends Component {
   NewMessageTyping = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  NewMeesageFilterUser = () => {};
+
+  handleSubmitNewMessage =() => {
+    API.getChats(localStorage.token).then((chats) => {
+      this.setState({
+        chats: chats,
+      });
+    });
+  }
 }
 
 export default DashboardContainer;

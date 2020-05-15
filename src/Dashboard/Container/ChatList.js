@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import ShowChat from "../Components/ShowChats";
+import ShowChats from "../Components/ShowChats";
 import NewMessageBtn from "../Components/NewMessageBtn";
-import API from "../../API";
 
 export default class ChatList extends Component {
   constructor() {
@@ -13,7 +12,7 @@ export default class ChatList extends Component {
 
   render() {
     const chats = this.props.chats.map((chat, index) => (
-      <ShowChat
+      <ShowChats
         friendName={this.findFriendName(chat.users)}
         message={this.findLastMessage(chat)}
         key={index}
