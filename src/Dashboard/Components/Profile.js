@@ -18,17 +18,13 @@ class ProfileComponent extends React.Component {
     super();
     this.state = {
       name: "",
-      image:
-        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      email: "",
-      user_status: "",
+      email: ""
     };
   }
 
   componentDidMount() {
     this.setState({
       name: this.props.user.name,
-      image: this.state.image,
       email: this.props.user.email
     })
   }
@@ -38,20 +34,16 @@ class ProfileComponent extends React.Component {
     API.patch(`users/${this.props.user.id}`, {
       user: {
         name: this.state.name,
-        profileImage: this.state.image,
         email: this.state.email
       }
     })
-
+    this.props.history.push("/home")
   };
 
   userTyping = (type, event) => {
     switch (type) {
       case "name":
         this.setState({ name: event.target.value });
-        break;
-      case "image":
-        this.setState({ image: event.target.value });
         break;
       case "email":
         this.setState({ email: event.target.value });
@@ -81,36 +73,20 @@ class ProfileComponent extends React.Component {
                   Change name: {this.props.user.name}
                 </InputLabel>
                 <Input
-                  autoComplete="name"
                   id="profile-name-input"
+                  value={this.state.name}
                   onChange={(event) => {
                     this.userTyping("name", event);
                   }}
                 ></Input>
               </FormControl>
               <FormControl required fullWidth margin="normal">
-                <InputLabel htmlFor="profile-image-input">
-                  Change Image
-                </InputLabel>
-                <Input
-                  id="profile-image-input"
-                  onChange={(event) => {
-                    this.userTyping("image", event);
-                  }}
-                ></Input>
-                <img
-                  className={classes.profileEditImage}
-                  src={this.state.image}
-                  alt="profile"
-                ></img>
-              </FormControl>
-              <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="profile-email-input">
                   Change email: {this.props.user.email}
                 </InputLabel>
                 <Input
-                  autoComplete="email"
                   id="profile-email-input"
+                  value={this.state.email}
                   onChange={(event) => {
                     this.userTyping("email", event);
                   }}

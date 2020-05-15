@@ -8,14 +8,14 @@ import SignUpComponent from '../src/SignUp/SignUp'
 import DashboardContainer from '../src/Dashboard/Container/Dashboard'
 import ProfileComponent from '../src/Dashboard/Components/Profile'
 
-function parseJwt(token) {
-  if (!token) {
-    return;
-  }
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace("-", "+").replace("_", "/");
-  return JSON.parse(window.atob(base64));
-}
+// function parseJwt(token) {
+//   if (!token) {
+//     return;
+//   }
+//   const base64Url = token.split(".")[1];
+//   const base64 = base64Url.replace("-", "+").replace("_", "/");
+//   return JSON.parse(window.atob(base64));
+// }
 
 class App extends React.Component {
   constructor(){
@@ -33,11 +33,18 @@ class App extends React.Component {
   componentDidMount() {
     if (localStorage.token) {
       API.validate(localStorage.token)
-        .then( user => this.signIn(user))
+        .then((result) => {
+          if (result.error) {
+            console.log(result.error)
+          } else {
+          this.signIn(result.user)
+          }
+        })
     }
   }
   
   signIn = (user) => {
+    debugger
     localStorage.token = user.token
     user.token = undefined
     this.setState({
@@ -64,10 +71,19 @@ class App extends React.Component {
     localStorage.removeItem("token")
   }
 
+  submitLogin = (event, email, password) => {
+    event.preventDefault()
+    API.signIn({email, password})
+      .then(result => {
+        debugger
+        result.error ? console.log(result.error) : this.signIn(result)})
+      .then(() => this.props.history.push("/home"))
+}
+
   render(){
     return (
       <div >
-    <Route exact path="/" render={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
+    <Route exact path="/" render={(props) => <LoginComponent {...props} signIn={this.signIn} submitLogin={this.submitLogin}/>}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
      <Route exact path="/home" render={(props) => <DashboardContainer signOut={this.signOut} {...props}  user={this.state.user}/>}></Route>
      <Route exact path="/profile" render={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
