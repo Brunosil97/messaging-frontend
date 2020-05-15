@@ -67,10 +67,10 @@ class App extends React.Component {
   render(){
     return (
       <div >
-    <Route exact path="/" component={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
+    <Route exact path="/" render={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
-     <Route exact path="/home" component={(props) => <DashboardContainer signOut={this.signOut} {...props}  user={this.state.user}/>}></Route>
-     <Route exact path="/profile" component={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
+     <Route exact path="/home" render={(props) => <DashboardContainer signOut={this.signOut} {...props}  user={this.state.user}/>}></Route>
+     <Route exact path="/profile" render={(props) => <ProfileComponent {...props} user={this.state.user}/>}></Route>
       </div>
     )
   }

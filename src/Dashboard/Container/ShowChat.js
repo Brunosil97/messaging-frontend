@@ -23,8 +23,9 @@ export default class ShowChat extends Component {
       }
     );
   }
-
+  
   componentWillUnmount() {
+    console.log("unmounted")
     this.props.cable.subscriptions.remove(this.messagesChannel);
   }
 

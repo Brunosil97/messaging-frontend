@@ -77,7 +77,8 @@ class DashboardContainer extends Component {
       </div>
     );
   }
-  HandleSelectMessageClick = (chat) => {
+  HandleSelectMessageClick = async (chat) => {
+    await this.setState({ selectedChat: null });
     this.setState({ selectedChat: chat });
   };
   HandleNewMessageBtnClick = () => {
