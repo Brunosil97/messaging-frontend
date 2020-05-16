@@ -18,9 +18,21 @@ class LoginComponent extends React.Component {
         this.state = {
             email: null,
             password: null,
-            loginError: ""
+            loginError: null
         }
     }
+    submitLogin = event => {
+        event.preventDefault()
+        API.signIn(this.state)
+          .then( async(user) => {
+                if (user.error) {
+                    this.setState({loginError: user.error})
+                } else {
+            await this.props.signIn(user)
+            this.props.history.push("/home")
+            }
+        })
+        }
         
     userTyping = (type, event) => {
         switch (type){
@@ -41,7 +53,8 @@ class LoginComponent extends React.Component {
                 <CssBaseline></CssBaseline>
                 <Paper className={classes.paper}>
                     <Typography component='h1' variant='h5'>Chat Mates</Typography>
-                    <form className={classes.form} onSubmit={(event) => this.props.submitLogin(event, this.state.email, this.state.password)}>
+                    {this.state.loginError ? <h3>{this.state.loginError}</h3> : null}
+                    <form className={classes.form} onSubmit={(event) => this.submitLogin(event)}>
                         <FormControl required fullWidth margin='normal'>
                             <InputLabel htmlFor="login-email-input">Enter email</InputLabel>
                             <Input autoComplete='email' autoFocus id='login-email-input' onChange={(event => this.userTyping('email', event))}></Input>
