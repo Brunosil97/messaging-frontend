@@ -1,6 +1,5 @@
 
 const baseURL = "http://localhost:3000"
-const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
 const chatsURL = `${baseURL}/chats_for_users`
 

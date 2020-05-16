@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import ShowMessage from "../Components/ShowMessage";
 import TypeMessageBox from "../Components/TypeMessageBox";
-import API from "../../API";
-import Cable from "actioncable";
 
 export default class ShowChat extends Component {
   constructor(props) {

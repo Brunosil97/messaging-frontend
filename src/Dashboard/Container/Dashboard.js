@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ChatList from "./ChatList.js";
 import ShowChat from "./ShowChat.js";
 import NavBar from "../../NavBar/NavBar";
-import NewMessage from "./NewMessage";
 import API from "../../API";
 import Cable from "actioncable";
 
@@ -11,13 +10,11 @@ class DashboardContainer extends Component {
     super();
 
     this.state = {
-      newMessage: false,
       selectedChat: null,
       NewMessageUsers: "",
       NewMessageUserId: null,
       NewMessageMessage: "",
       chats: null,
-      // user: null,
       newChat_id: null,
     };
 
@@ -39,6 +36,20 @@ class DashboardContainer extends Component {
     }
   }
 
+  HandleSelectMessageClick = async (chat) => {
+    await this.setState({ selectedChat: null });
+    this.setState({ selectedChat: chat });
+  };
+ 
+  handleSubmitNewMessage =() => {
+    API.getChats(localStorage.token).then((chats) => {
+      this.setState({
+        chats: chats,
+      });
+    });
+  }
+
+
   render() {
     return (
       <div className="Dashboard">
@@ -46,21 +57,14 @@ class DashboardContainer extends Component {
           signOut={this.props.signOut}
           ResetNewMessageBack={this.ResetNewMessageBack}
         />
-        {this.state.newMessage ? (
-          <NewMessage
-            HandleNewMessageSubmit={this.HandleNewMessageSubmit}
-            HandleNewMessageBack={this.ResetNewMessageBack}
-            NewMessageTyping={this.NewMessageTyping}
-          />
-        ) : (
           <div className="Chats">
             {this.state.chats ? (
               <ChatList
+                history={this.props.history}
                 className="ChatList"
                 chats={this.state.chats}
                 user={this.props.user}
                 HandleSelectMessageClick={this.HandleSelectMessageClick}
-                HandleNewMessageBtnClick={this.HandleNewMessageBtnClick}
               />
             ) : null}
             {this.state.selectedChat !== null ? (
@@ -73,46 +77,8 @@ class DashboardContainer extends Component {
               />
             ) : null}
           </div>
-        )}
       </div>
     );
-  }
-  HandleSelectMessageClick = async (chat) => {
-    await this.setState({ selectedChat: null });
-    this.setState({ selectedChat: chat });
-  };
-  HandleNewMessageBtnClick = () => {
-    this.setState({ newMessage: !this.state.newMessage });
-  };
-
-  HandleNewMessageSubmit = (e) => {
-    e.preventDefault();
-
-    API.post("new_chat", {
-      chat: {
-        hasRead: false,
-      },
-      user_id: this.props.user.id,
-      email: this.state.NewMessageUsers,
-    });
-    this.props.history.push("/home");
-  };
-
-  ResetNewMessageBack = () => {
-    this.setState({
-      NewMessageUsers: "",
-    });
-  };
-  NewMessageTyping = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleSubmitNewMessage =() => {
-    API.getChats(localStorage.token).then((chats) => {
-      this.setState({
-        chats: chats,
-      });
-    });
   }
 }
 

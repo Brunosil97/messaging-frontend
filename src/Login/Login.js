@@ -10,7 +10,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import API from "../API"
-import {Redirect} from 'react-router-dom';
 
 class LoginComponent extends React.Component {
     constructor() {

@@ -25,7 +25,7 @@ export default class ChatList extends Component {
     return (
       <div>
         <NewMessageBtn
-          HandleNewMessageBtnClick={this.props.HandleNewMessageBtnClick}
+          history={this.props.history}
         />
         {chats}
       </div>

@@ -1,3 +1,5 @@
+
+
 const styles = (theme) => ({
     root: {
       flexGrow: 1,
@@ -8,6 +10,11 @@ const styles = (theme) => ({
     title: {
       flexGrow: 1,
     },
+    navLink: {
+      color: "white",
+      textDecoration: "none",
+      fontWeight: "600"
+    }
   });
   
   export default styles

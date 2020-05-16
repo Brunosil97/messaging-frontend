@@ -1,5 +1,4 @@
 import React from 'react'
-import NavBar from './NavBar/NavBar'
 import { Route, withRouter } from 'react-router-dom'
 import API from "./API.js"
 import './App.css'
@@ -7,15 +6,7 @@ import LoginComponent from '../src/Login/Login'
 import SignUpComponent from '../src/SignUp/SignUp'
 import DashboardContainer from '../src/Dashboard/Container/Dashboard'
 import ProfileComponent from '../src/Dashboard/Components/Profile'
-
-function parseJwt(token) {
-  if (!token) {
-    return;
-  }
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace("-", "+").replace("_", "/");
-  return JSON.parse(window.atob(base64));
-}
+import NewMessage from '../src/Dashboard/Container/NewMessage'
 
 class App extends React.Component {
   constructor(){
@@ -68,6 +59,7 @@ class App extends React.Component {
     return (
       <div >
     <Route exact path="/" render={(props) => <LoginComponent {...props} signIn={this.signIn}/>}/>
+    <Route exact path="/new_message" render={(props) => <NewMessage signOut={this.signOut} {...props}  user={this.state.user} />}/>
      <Route exact path="/signup" component={SignUpComponent}></Route>
      <Route exact path="/home" render={(props) => <DashboardContainer signOut={this.signOut} {...props}  user={this.state.user}/>}></Route>
      <Route exact path="/profile" render={(props) => <ProfileComponent {...props} signOut={this.signOut} user={this.state.user}/>}></Route>
