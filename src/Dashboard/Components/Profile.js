@@ -57,7 +57,7 @@ class ProfileComponent extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <NavBar />
+        <NavBar signOut={this.props.signOut}/>
         <main className={classes.main}>
           <Paper className={classes.paper}>
             <CssBaseline></CssBaseline>
